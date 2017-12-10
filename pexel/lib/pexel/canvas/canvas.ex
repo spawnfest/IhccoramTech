@@ -51,10 +51,16 @@ defmodule Pexel.Canvas do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_tile(attrs \\ %{}) do
-    %Tile{}
+  def create_tile(%{"x" => x, "y" => y} = attrs) do
+    tile =
+      case Repo.get_by(Tile, x: x, y: y) do
+        nil -> %Tile{}
+        existing -> existing
+      end
+
+    tile
     |> Tile.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert_or_update()
   end
 
   @doc """
