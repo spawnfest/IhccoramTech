@@ -3,6 +3,7 @@
 To start Pexel:
 
   * Install dependencies with `mix deps.get`
+  * Tweak postgres credential in `config/dev.exs`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * Seed the data with `mix run priv/repo/seeds.exs`
   * Install Node.js dependencies with `cd assets && npm install`
