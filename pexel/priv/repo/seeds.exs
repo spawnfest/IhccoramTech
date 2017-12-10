@@ -18,7 +18,7 @@ defmodule Pexel.DBSeeder do
     Repo.insert!(%Tile{
       x: x,
       y: y,
-      color: 0
+      color: 3
     })
   end
 
