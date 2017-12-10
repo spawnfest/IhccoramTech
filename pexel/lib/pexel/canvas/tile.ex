@@ -3,6 +3,7 @@ defmodule Pexel.Canvas.Tile do
   import Ecto.Changeset
   alias Pexel.Canvas.Tile
 
+  @max_color 16
 
   @primary_key false
   schema "tiles" do
@@ -18,5 +19,6 @@ defmodule Pexel.Canvas.Tile do
     tile
     |> cast(attrs, [:x, :y, :color])
     |> validate_required([:x, :y, :color])
+    |> validate_number(:color, greater_than_or_equal_to: 0, less_than: @max_color)
   end
 end
