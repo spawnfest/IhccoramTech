@@ -11,8 +11,7 @@ defmodule PexelWeb.TileView do
   end
 
   def render("tile.json", %{tile: tile}) do
-    %{id: tile.id,
-      x: tile.x,
+    %{x: tile.x,
       y: tile.y,
       color: tile.color}
   end

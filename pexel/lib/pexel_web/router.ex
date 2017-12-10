@@ -20,7 +20,12 @@ defmodule PexelWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", PexelWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", PexelWeb do
+    pipe_through :api
+
+    resources "/tiles", TileController, only: [:index, :create]
+    get "/tiles/:x/:y", TileController, :show
+    patch "/tiles/:x/:y", TileController, :update
+    put "/tiles/:x/:y", TileController, :update
+  end
 end

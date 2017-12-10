@@ -4,10 +4,11 @@ defmodule Pexel.Canvas.Tile do
   alias Pexel.Canvas.Tile
 
 
+  @primary_key false
   schema "tiles" do
-    field :color, :binary
-    field :x, :integer
-    field :y, :integer
+    field :color, :integer
+    field :x, :integer, primary_key: true
+    field :y, :integer, primary_key: true
 
     timestamps()
   end

@@ -35,7 +35,9 @@ defmodule Pexel.Canvas do
       ** (Ecto.NoResultsError)
 
   """
-  def get_tile!(id), do: Repo.get!(Tile, id)
+  def get_tile!(x, y) do
+    Repo.get_by!(Tile, x: x, y: y)
+  end
 
   @doc """
   Creates a tile.

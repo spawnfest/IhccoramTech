@@ -15,26 +15,26 @@ defmodule PexelWeb.TileController do
     with {:ok, %Tile{} = tile} <- Canvas.create_tile(tile_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", tile_path(conn, :show, tile))
+      |> put_resp_header("location", tile_path(conn, :show, tile.x, tile.y))
       |> render("show.json", tile: tile)
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    tile = Canvas.get_tile!(id)
+  def show(conn, %{"x" => x, "y" => y}) do
+    tile = Canvas.get_tile!(x, y)
     render(conn, "show.json", tile: tile)
   end
 
-  def update(conn, %{"id" => id, "tile" => tile_params}) do
-    tile = Canvas.get_tile!(id)
+  def update(conn, %{"x" => x, "y" => y, "tile" => tile_params}) do
+    tile = Canvas.get_tile!(x, y)
 
     with {:ok, %Tile{} = tile} <- Canvas.update_tile(tile, tile_params) do
       render(conn, "show.json", tile: tile)
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    tile = Canvas.get_tile!(id)
+  def delete(conn, %{"x" => x, "y" => y}) do
+    tile = Canvas.get_tile!(x, y)
     with {:ok, %Tile{}} <- Canvas.delete_tile(tile) do
       send_resp(conn, :no_content, "")
     end
