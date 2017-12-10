@@ -8,3 +8,14 @@
   image-rendering: -moz-crisp-edges;
   padding: 2px;
 }
+
+#colors div {
+    display: inline-block;
+
+    width: 15px;
+    height: 15px;
+    background: black;
+
+    /* a small margin to separate the blocks */
+    margin-right: 2px;
+}

@@ -1,3 +1,11 @@
+<div id="title-text">
+  <h2>Choose the color and place your Pexels</h2>
+</div>
+<div id="colors">
+  <%= for i <- 0..15 do %>
+    <div id="color-<%= i %>"></div>
+  <% end %>
+</div>
 <div id="canvas-div">
   <canvas id="main-canvas" width="<%= Pexel.Canvas.side_size() %>" height="<%= Pexel.Canvas.side_size() %>">
   Your browser does not support the HTML5 canvas tag.</canvas>
