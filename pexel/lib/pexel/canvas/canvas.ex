@@ -8,6 +8,18 @@ defmodule Pexel.Canvas do
 
   alias Pexel.Canvas.Tile
 
+  @side_size 100
+
+  @doc """
+  Returns the size of the side of the canvas
+  (i.e. how many tiles per side are there).
+
+  For now, the canvas is assumed to be square.
+  """
+  def side_size do
+    @side_size
+  end
+
   @doc """
   Returns the list of tiles.
 
