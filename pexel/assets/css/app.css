@@ -1,1 +1,11 @@
 /* This file is for your main application css. */
+#canvas-div {
+  transform-origin: top left;
+  transform: scale(5, 5);
+  width: 100;
+  max-width: 100;
+  display: inline-block;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+}
