@@ -21,6 +21,8 @@ import "jquery"
 
 import socket from "./socket"
 
+let selectedColor = 0;
+
 const COLOR_PALETTE = [
     0xFFFFFFFF, // white
     0xFFE4E4E4, // light grey
@@ -80,20 +82,39 @@ function changePixel(x, y, colorIdx) {
     ctx.putImageData(imgData, x, y);
 }
 
+function argbToString(argb) {
+    var rgba = ((argb & 0xFF) << 24)
+               | ((argb & 0xFF00) << 8)
+               | ((argb >> 8) & 0xFF00)
+               | ((argb >> 24) & 0xFF);
+
+    if (rgba < 0) {
+        rgba = 0xFFFFFFFF + rgba + 1;
+    }
+
+    return "#" + rgba.toString(16);
+}
+
 $(document).ready(fillCanvas);
 
 $('#main-canvas').click(function(e) {
     var pos = findPos(this, e);
     var x = Math.floor(pos.x);
     var y = Math.floor(pos.y);
-    var randIdx = Math.floor(Math.random() * 16);
-    var tileObj = {tile: {x: x, y: y, color: randIdx}}
+    var tileObj = {tile: {x: x, y: y, color: selectedColor}}
     $.post(apiUrl + "/tiles", tileObj)
         .fail(e => {
             console.warn("Tile update failed: " + JSON.stringify(e));
         })
 })
 
+$('#colors').children('div').each(function (i, el) {
+    var colorString = argbToString(COLOR_PALETTE[i]);
+    $(this).css("background-color", colorString);
+    $(this).click(function(e) {
+        selectedColor = i;
+    })
+});
 
 // Channels stuff
 socket.connect()
