@@ -57,16 +57,14 @@ function fillCanvas() {
     });
 }
 
-function findPos(obj) {
-    var curleft = 0, curtop = 0;
-    if (obj.offsetParent) {
-        do {
-            curleft += obj.offsetLeft;
-            curtop += obj.offsetTop;
-        } while (obj = obj.offsetParent);
-        return { x: curleft, y: curtop };
-    }
-    return undefined;
+function findPos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect(),
+        scaleX = canvas.width / rect.width,
+        scaleY = canvas.height / rect.height;
+    return {
+        x: (evt.clientX - rect.left) * scaleX,
+        y: (evt.clientY - rect.top) * scaleY
+    };
 }
 
 function rgbToHex(r, g, b) {
@@ -78,9 +76,9 @@ function rgbToHex(r, g, b) {
 $(document).ready(fillCanvas);
 
 $('#main-canvas').mousemove(function(e) {
-    var pos = findPos(this);
-    var x = Math.floor((e.pageX - pos.x) / 5);
-    var y = Math.floor((e.pageY - pos.y) / 5);
+    var pos = findPos(this, e);
+    var x = Math.floor(pos.x);
+    var y = Math.floor(pos.y);
     var coord = "x=" + x + ", y=" + y;
     var c = this.getContext('2d');
     var p = c.getImageData(x, y, 1, 1).data;
@@ -89,9 +87,9 @@ $('#main-canvas').mousemove(function(e) {
 });
 
 $('#main-canvas').click(function(e) {
-    var pos = findPos(this);
-    var x = Math.floor((e.pageX - pos.x) / 5);
-    var y = Math.floor((e.pageY - pos.y) / 5);
+    var pos = findPos(this, e);
+    var x = Math.floor(pos.x);
+    var y = Math.floor(pos.y);
     var randIdx = Math.floor(Math.random() * 16);
     var arr32 = new Uint32Array(1);
     arr32[0] = COLOR_PALETTE[randIdx];
