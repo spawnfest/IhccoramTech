@@ -2,7 +2,7 @@ defmodule PexelWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", PexelWeb.RoomChannel
+  channel "canvas:updates", PexelWeb.CanvasChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
