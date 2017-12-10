@@ -71,12 +71,6 @@ function findPos(canvas, evt) {
     };
 }
 
-function rgbToHex(r, g, b) {
-    if (r > 255 || g > 255 || b > 255)
-        throw "Invalid color component";
-    return ((r << 16) | (g << 8) | b).toString(16);
-}
-
 function changePixel(x, y, colorIdx) {
     var arr32 = new Uint32Array(1);
     arr32[0] = COLOR_PALETTE[colorIdx];
@@ -88,17 +82,6 @@ function changePixel(x, y, colorIdx) {
 }
 
 $(document).ready(fillCanvas);
-
-$('#main-canvas').mousemove(function(e) {
-    var pos = findPos(this, e);
-    var x = Math.floor(pos.x);
-    var y = Math.floor(pos.y);
-    var coord = "x=" + x + ", y=" + y;
-    var c = this.getContext('2d');
-    var p = c.getImageData(x, y, 1, 1).data;
-    var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
-    $('#status').html(coord + "<br>" + hex);
-});
 
 $('#main-canvas').click(function(e) {
     var pos = findPos(this, e);
