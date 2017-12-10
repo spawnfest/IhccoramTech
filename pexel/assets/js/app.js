@@ -42,17 +42,18 @@ const apiUrl = window.location.protocol + "//" + window.location.host + "/api"
 
 // import socket from "./socket"
 function fillCanvas() {
+    var canvasSide = window.canvasSideSize;
     $.getJSON(apiUrl + "/tiles")
     .done(function(jsonRes) {
-        var arr32 = new Uint32Array(10000)
+        var arr32 = new Uint32Array(canvasSide *  canvasSide)
         $.each(jsonRes.data, function(i, elem) {
-            arr32[elem.x * 100 + elem.y] = COLOR_PALETTE[elem.color]
+            arr32[elem.x * canvasSide + elem.y] = COLOR_PALETTE[elem.color]
         });
         var arr = new Uint8ClampedArray(arr32.buffer)
         var c = document.getElementById("main-canvas");
         var ctx = c.getContext("2d");
         ctx.imageSmoothingEnabled = false;
-        var imgData = new ImageData(arr, 100, 100)
+        var imgData = new ImageData(arr, canvasSide, canvasSide)
         ctx.putImageData(imgData, 0, 0);
     });
 }
