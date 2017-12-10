@@ -1,7 +1,5 @@
-<div class="jumbotron">
-  <div id="status"></div>
-  <div id="canvas-div">
-    <canvas id="main-canvas" width="<%= Pexel.Canvas.side_size() %>" height="<%= Pexel.Canvas.side_size() %>">
-    Your browser does not support the HTML5 canvas tag.</canvas>
-  </div>
+<div id="status"></div>
+<div id="canvas-div">
+  <canvas id="main-canvas" width="<%= Pexel.Canvas.side_size() %>" height="<%= Pexel.Canvas.side_size() %>">
+  Your browser does not support the HTML5 canvas tag.</canvas>
 </div>
