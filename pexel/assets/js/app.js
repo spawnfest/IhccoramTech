@@ -22,7 +22,6 @@ import "jquery"
 import socket from "./socket"
 
 const COLOR_PALETTE = [
-    0xFF000000, // white
     0xFFFFFFFF, // white
     0xFFE4E4E4, // light grey
     0xFF888888, // grey
