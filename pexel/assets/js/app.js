@@ -19,16 +19,42 @@ import "jquery"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
+const COLOR_PALETTE = [
+    0xFFFFFFFF, // white
+    0xFFE4E4E4, // light grey
+    0xFF888888, // grey
+    0xFF222222, // black
+    0xFFFFA7D1, // pink
+    0xFFE50000, // red
+    0xFFE59500, // orange
+    0xFFA06A42, // brown
+    0xFFE5D900, // yellow
+    0xFF94E044, // lime
+    0xFF02BE01, // green
+    0xFF00D3DD, // cyan
+    0xFF0083C7, // blue
+    0xFF0000EA, // dark blue
+    0xFFCF6EE4, // magenta
+    0xFF820080, // purple
+]
+
+const apiUrl = window.location.protocol + "//" + window.location.host + "/api"
+
 // import socket from "./socket"
 function fillCanvas() {
-		var arr32 = new Uint32Array(10000)
-    arr32.fill(0xFF00FF00)
-		var arr = new Uint8ClampedArray(arr32.buffer)
-    var c = document.getElementById("main-canvas");
-    var ctx = c.getContext("2d");
-    ctx.imageSmoothingEnabled = false;
-    var imgData = new ImageData(arr, 100, 100)
-    ctx.putImageData(imgData, 0, 0);
+    $.getJSON(apiUrl + "/tiles")
+    .done(function(jsonRes) {
+        var arr32 = new Uint32Array(10000)
+        $.each(jsonRes.data, function(i, elem) {
+            arr32[elem.x * 100 + elem.y] = COLOR_PALETTE[elem.color]
+        });
+        var arr = new Uint8ClampedArray(arr32.buffer)
+        var c = document.getElementById("main-canvas");
+        var ctx = c.getContext("2d");
+        ctx.imageSmoothingEnabled = false;
+        var imgData = new ImageData(arr, 100, 100)
+        ctx.putImageData(imgData, 0, 0);
+    });
 }
 
 function findPos(obj) {
