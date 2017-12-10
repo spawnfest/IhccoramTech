@@ -19,7 +19,10 @@ import "jquery"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
+import socket from "./socket"
+
 const COLOR_PALETTE = [
+    0xFF000000, // white
     0xFFFFFFFF, // white
     0xFFE4E4E4, // light grey
     0xFF888888, // grey
@@ -103,4 +106,17 @@ $('#main-canvas').click(function(e) {
     var y = Math.floor(pos.y);
     var randIdx = Math.floor(Math.random() * 16);
     changePixel(x, y, randIdx);
+})
+
+
+// Channels stuff
+socket.connect()
+
+let channel = socket.channel("canvas:updates", {})
+channel.join()
+  .receive("ok", resp => { console.log("Joined successfully") })
+  .receive("error", resp => { console.log("Unable to join", resp) })
+
+channel.on("new_tile", msg => {
+    changePixel(msg.x, msg.y, msg.color);
 })
