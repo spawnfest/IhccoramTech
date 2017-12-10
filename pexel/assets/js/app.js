@@ -105,7 +105,11 @@ $('#main-canvas').click(function(e) {
     var x = Math.floor(pos.x);
     var y = Math.floor(pos.y);
     var randIdx = Math.floor(Math.random() * 16);
-    changePixel(x, y, randIdx);
+    var tileObj = {tile: {x: x, y: y, color: randIdx}}
+    $.post(apiUrl + "/tiles", tileObj)
+        .fail(e => {
+            console.warn("Tile update failed: " + JSON.stringify(e));
+        })
 })
 
 
