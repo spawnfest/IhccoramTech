@@ -74,6 +74,16 @@ function rgbToHex(r, g, b) {
     return ((r << 16) | (g << 8) | b).toString(16);
 }
 
+function changePixel(x, y, colorIdx) {
+    var arr32 = new Uint32Array(1);
+    arr32[0] = COLOR_PALETTE[colorIdx];
+    var arr = new Uint8ClampedArray(arr32.buffer);
+    var imgData = new ImageData(arr, 1, 1);
+    var c = document.getElementById("main-canvas");
+    var ctx = c.getContext("2d");
+    ctx.putImageData(imgData, x, y);
+}
+
 $(document).ready(fillCanvas);
 
 $('#main-canvas').mousemove(function(e) {
@@ -92,11 +102,5 @@ $('#main-canvas').click(function(e) {
     var x = Math.floor(pos.x);
     var y = Math.floor(pos.y);
     var randIdx = Math.floor(Math.random() * 16);
-    var arr32 = new Uint32Array(1);
-    arr32[0] = COLOR_PALETTE[randIdx];
-    var arr = new Uint8ClampedArray(arr32.buffer);
-    var imgData = new ImageData(arr, 1, 1);
-    var c = document.getElementById("main-canvas");
-    var ctx = c.getContext("2d");
-    ctx.putImageData(imgData, x, y);
+    changePixel(x, y, randIdx);
 })
