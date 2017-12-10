@@ -75,7 +75,7 @@ function rgbToHex(r, g, b) {
     return ((r << 16) | (g << 8) | b).toString(16);
 }
 
-$('#fill-button').click(fillCanvas);
+$(document).ready(fillCanvas);
 
 $('#main-canvas').mousemove(function(e) {
     var pos = findPos(this);

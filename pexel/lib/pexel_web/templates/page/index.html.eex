@@ -1,5 +1,4 @@
 <div class="jumbotron">
-  <p><button id="fill-button">Fill</button></p>
   <div id="status"></div>
   <div id="canvas-div">
     <canvas id="main-canvas" width="100" height="100">
