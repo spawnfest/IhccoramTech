@@ -89,16 +89,15 @@ $('#main-canvas').mousemove(function(e) {
 });
 
 $('#main-canvas').click(function(e) {
-		var pos = findPos(this);
+    var pos = findPos(this);
     var x = Math.floor((e.pageX - pos.x) / 5);
     var y = Math.floor((e.pageY - pos.y) / 5);
+    var randIdx = Math.floor(Math.random() * 16);
+    var arr32 = new Uint32Array(1);
+    arr32[0] = COLOR_PALETTE[randIdx];
+    var arr = new Uint8ClampedArray(arr32.buffer);
+    var imgData = new ImageData(arr, 1, 1);
     var c = document.getElementById("main-canvas");
     var ctx = c.getContext("2d");
-    var id = ctx.createImageData(1,1);
-    var d  = id.data;
-    d[0] = 0xff;
-    d[1] = 0x00;
-    d[2] = 0x00;
-    d[3] = 0xff;
-    ctx.putImageData(id, x, y);
+    ctx.putImageData(imgData, x, y);
 })
