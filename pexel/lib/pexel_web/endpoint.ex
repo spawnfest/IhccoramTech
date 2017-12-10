@@ -38,6 +38,8 @@ defmodule PexelWeb.Endpoint do
     key: "_pexel_key",
     signing_salt: "JCkAFrim"
 
+  plug CORSPlug
+
   plug PexelWeb.Router
 
   @doc """
